@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>اسماء - البحث الذكي</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-3xl p-8 bg-white rounded-2xl shadow-2xl">
+    <h1 class="text-3xl font-bold text-center text-purple-700 mb-6">🔎 البحث بالأسماء (Cosine Similarity)</h1>
+    
+    <form method="post" action="/search" class="flex gap-2 mb-6">
+      <input 
+        type="text" 
+        name="query" 
+        placeholder="اكتب الاسم هنا..."
+        class="flex-grow px-4 py-2 border rounded-xl focus:ring-2 focus:ring-purple-500 focus:outline-none"
+        required
+      >
+      <button 
+        type="submit" 
+        class="px-6 py-2 bg-purple-600 text-white rounded-xl shadow hover:bg-purple-700 transition">
+        بحث
+      </button>
+    </form>
+
+   {% if results %}
+  <h2 class="text-xl font-semibold text-gray-700 mb-4">
+    📋 النتائج لـ: <span class="text-purple-600">{{ query }}</span>
+  </h2>
+  <div class="space-y-4">
+    {% for row in results %}
+      <div class="p-4 bg-gradient-to-r from-purple-50 to-blue-50 border rounded-xl shadow hover:shadow-md transition">
+        <p><span class="font-bold">🔢 الترتيب في كشف النتيجة:</span> {{ row['الترتيب في كشف النتيجة'] }}</p>
+        <p><span class="font-bold">🆔 رقم دخول الاختبار:</span> {{ row['رقم دخولالاختبار'] }}</p>
+        <p><span class="font-bold">📄 رقم التنسيق:</span> {{ row['رقم التنسيق'] }}</p>
+        <p><span class="font-bold">👤 اسم المتقدم:</span> {{ row['اسم المتقدم'] }}</p>
+        <p><span class="font-bold">🎓 معدل الثانوية:</span> {{ row['معدلالثانوية'] }}%</p>
+        <p><span class="font-bold">🧮 مجموع درجات المواد:</span> {{ row['مجموع درجاتالمواد'] }}</p>
+        <p><span class="font-bold">📈 النسبة من الثانوية (30%):</span> {{ row['النسبة من  الثانوية 30%'] }}%</p>
+        <p><span class="font-bold">📉 النسبة من الاختبار (70%):</span> {{ row['النسبة من  الاختبار 70%'] }}%</p>
+        <p><span class="font-bold">📊 نتيجة المفاضلة:</span> <span class="text-purple-600">{{ row['نتيجةالمفاضلة'] }}%</span></p>
+        <p><span class="font-bold">🕵️‍♂️ حضور الامتحان:</span> {{ row['حضورالامتحان'] }}</p>
+        <p><span class="font-bold">✅ حالة القبول:</span> <span class="text-green-600 font-semibold">{{ row['حالةالقبول'] }}</span></p>
+        <p><span class="font-bold">🔍 نسبة التشابه:</span> <span class="text-purple-600">{{ row.similarity }}%</span></p>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+  </div>
+</body>
+</html>
